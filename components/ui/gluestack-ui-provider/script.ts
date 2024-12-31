@@ -1,3 +1,4 @@
+
 export const script = (mode: string) => {
   const documentElement = document.documentElement;
 
