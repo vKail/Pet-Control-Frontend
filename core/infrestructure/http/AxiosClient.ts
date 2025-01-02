@@ -8,7 +8,7 @@ import SessionStorage from 'react-native-session-storage';
 export class AxiosClient implements HttpHandler {
   private static instance: AxiosClient;
   private axiosInstance: AxiosInstance;
-  private static readonly baseUrl: string = "http://192.168.1.14:8080";
+  private static readonly baseUrl: string = "http://localhost:8080";
   private static accessToken: string | null = null;
 
   private constructor() {

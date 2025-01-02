@@ -4,14 +4,15 @@ import Toast from 'react-native-toast-message';
 import { IPet } from '../models/IPet';
 import { usePetStore } from '../context/use-pet-store';
 
-export const usePetForm = () => {
-   const {addPet} = usePetStore(); 
+export const usePetForm = (currentPet? : Partial<IPet>) => {
+   const {addPet, updatePet} = usePetStore(); 
 
-    const initialValues: Omit<IPet, 'ownerId'> = {
-        name: '',
-        birthDate: '',
-        gender: '',
-        specieId: 0,
+    const initialValues: Omit<IPet, 'ownerId' | 'id'> = {
+        name: currentPet?.name || '',
+        birthDate: currentPet?.birthDate || '',
+        gender: currentPet?.gender || '',
+        specieId: currentPet?.specieId || 0,
+        image: currentPet?.image || '',
     };
 
     const validationSchema = z.object({
@@ -26,18 +27,8 @@ export const usePetForm = () => {
             ...values,
             ownerId: 1 // Este valor debería venir del contexto de usuario
         };
-        try {
-            await addPet(newValues);
-            Toast.show({
-                type: 'success',
-                text1: 'Mascota registrada exitosamente'
-            });
-        } catch (error) {
-            Toast.show({
-                type: 'error',
-                text1: 'Error al registrar la mascota'
-            });
-        }
+
+            currentPet ? await updatePet(currentPet.id ?? 0, newValues) : await addPet(newValues);
     };
 
     return {

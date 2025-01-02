@@ -7,9 +7,9 @@ const Layout = () => {
   return (
     <GluestackUIProvider mode="light">
       <Stack screenOptions={{ headerShown: false }}>
-        {/* <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="register" options={{ headerShown: false }} /> */}
+        {/* <Stack.Screen name="index" options={{ headerShown: false }} /> */}
+        <Stack.Screen name="info/[id]/vaccines/edit/[vaccineId]" options={{ headerShown: false }} />
+        {/* <Stack.Screen name="register" options={{ headerShown: false }} /> */}
         <Slot/>
       </Stack>
       <Toast />
