@@ -1,12 +1,13 @@
+import SessionStorage from 'react-native-session-storage';
 
 export const setToken = (token: string) => {
-    localStorage.setItem('access_token', token)
+    SessionStorage.setItem('access_token', token)
 }
 
 export const getToken = () => {
-    return localStorage.getItem('access_token')
+    return SessionStorage.getItem('access_token')
 }
 
 export const removeToken = () => {
-    localStorage.removeItem('access_token')
+    SessionStorage.removeItem('access_token')
 }

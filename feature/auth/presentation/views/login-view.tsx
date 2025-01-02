@@ -7,6 +7,7 @@ import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { Pressable } from "@/components/ui/pressable";
 import { KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import { Center } from "@/components/ui/center";
 
 export const LoginScreen = () => {
   return (
@@ -17,12 +18,17 @@ export const LoginScreen = () => {
       <ScrollView
         className="flex-1"
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 20 }}
+        contentContainerStyle={{ 
+          flexGrow: 1,
+          justifyContent: 'center',
+          paddingBottom: 20,
+          paddingTop: Platform.OS === 'ios' ? 60 : 20
+        }}
       >
-        <Box className="flex justify-center items-center min-h-full py-8">
+        <Box className="flex-1 justify-center items-center min-h-full py-8">
           <VStack className="w-full max-w-sm mx-auto space-y-8" space="xl">
-            <VStack className="space-y-2" space="xs">
-              <Heading className="flex-1 flex text-2xl font-bold justify-center mx-auto" size="xl">
+            <VStack className="space-y-2 items-center" space="xs">
+              <Heading className="text-2xl font-bold text-center" size="xl">
                 Bienvenido de vuelta 👋
               </Heading>
               <Image
@@ -30,16 +36,14 @@ export const LoginScreen = () => {
                   "https://img.freepik.com/vector-premium/hombre-abrazando-al-dueno-perro-abrazando-mascota-canina_316839-2947.jpg"
                 }
                 alt="logo"
-                className="w-52 h-52 object-contain mx-auto"
+                className="w-52 h-52 object-contain"
                 size="md"
               />
-              <Text className="text-gray-599 text-sm mx-auto">
+              <Text className="text-gray-599 text-sm text-center">
                 Inicia sesión para continuar
               </Text>
             </VStack>
-
             <LoginForm />
-
           </VStack>
         </Box>
       </ScrollView>

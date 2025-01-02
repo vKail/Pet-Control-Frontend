@@ -2,13 +2,13 @@ import { HttpHandler } from "@/core/interfaces/HttpHandler";
 import { HTTP_STATUS_CODES } from "@/core/providers/HttpStatusCodes";
 import { getToken } from "@/core/providers/TokenUtils";
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import { Console } from "console";
-import toast from "react-hot-toast";
+import Toast from "react-native-toast-message";
+import SessionStorage from 'react-native-session-storage';
 
 export class AxiosClient implements HttpHandler {
   private static instance: AxiosClient;
   private axiosInstance: AxiosInstance;
-  private static readonly baseUrl: string = "http://localhost:8080";
+  private static readonly baseUrl: string = "http://192.168.1.14:8080";
   private static accessToken: string | null = null;
 
   private constructor() {
@@ -25,7 +25,7 @@ export class AxiosClient implements HttpHandler {
         if (token) {
           config.headers.Authorization = `Bearer ${token.replaceAll('"', "")}`;
         } else {
-          document.dispatchEvent(new CustomEvent("unauthorized"));
+          // document.dispatchEvent(new CustomEvent("unauthorized"));
         }
         return config;
       },
@@ -37,7 +37,11 @@ export class AxiosClient implements HttpHandler {
     this.axiosInstance.interceptors.response.use(
       (response) => {
         if (!["get"].includes(response.config.method || ""))
-          toast.success("Acción realizada con éxito!");
+          Toast.show({
+            type: "success",
+            text1: "Operación exitosa",
+            text2: "La operación se realizó correctamente",
+          });
         return response;
       },
       (error) => {
@@ -45,9 +49,17 @@ export class AxiosClient implements HttpHandler {
           const errors =
             error.response.data.status.message ||
             "Error desconocido";
-          toast.error(`Error: ${error.response.status} - ${errors}`);
+            Toast.show({
+              type: "error",
+              text1: "Error",
+              text2: errors,
+            });
         } else {
-          toast.error(`Error: ${error.message}`);
+          Toast.show({
+            type: "error",
+            text1: "Error",
+            text2: error.message,
+          });
         }
         if (error.response?.status === HTTP_STATUS_CODES.FORBIDDEN) {
           if (typeof window !== "undefined") {

@@ -1,8 +1,11 @@
-import { LoginScreen } from "@/feature/auth/presentation/views/login-view"
-import { verifyInstallation } from 'nativewind';
+import { LoginScreen } from "@/feature/auth/presentation/views/login-view";
+import React from "react";
 const Main = () => {
-verifyInstallation();
-    return <LoginScreen />
-}
+  return (
+    <>
+      <LoginScreen />
+    </>
+  );
+};
 
-export default Main
+export default Main;
